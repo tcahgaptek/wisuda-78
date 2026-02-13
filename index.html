@@ -3,329 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Guest Wisuda UMP 78</title>
+    <title>Usher Wisuda UMP 78</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root {
-            --ump-blue: #002147;
-            --ump-gold: #FFD700;
-            --soft-bg: #f4f7fa;
+        :root { --ump-blue: #002147; --ump-gold: #FFD700; --soft-bg: #f4f7fa; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--soft-bg); margin: 0; padding-bottom: 50px; }
+
+        /* Header Modern */
+        .header-section { 
+            background: linear-gradient(135deg, var(--ump-blue) 0%, #004a99 100%); 
+            color: white; padding: 40px 0 80px; text-align: center; 
+            border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--soft-bg);
-            color: #2d3436;
-            padding-bottom: 50px;
+        /* Search Bar Sticky */
+        .search-wrapper { margin-top: -45px; position: sticky; top: 15px; z-index: 1000; }
+        .search-box { 
+            background: white; border-radius: 20px; padding: 12px 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 1px solid #e0e0e0;
+            display: flex; align-items: center;
+        }
+        .search-box input { border: none; box-shadow: none !important; font-size: 1.1rem; }
+        .search-box i { color: var(--ump-blue); font-size: 1.2rem; }
+
+        /* Result Cards */
+        .guest-card { 
+            background: white; border: none; border-radius: 18px; margin-bottom: 12px; 
+            border-left: 6px solid var(--ump-gold); transition: 0.3s;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+
+        .seat-tag { 
+            background: var(--ump-blue); color: var(--ump-gold); 
+            padding: 8px 15px; border-radius: 12px; font-weight: 700; 
+            text-align: center; min-width: 110px; font-size: 0.9rem;
         }
 
-        /* Background Header */
-        .header-section {
-            background: linear-gradient(135deg, var(--ump-blue) 0%, #004a99 100%);
-            color: white;
-            padding: 60px 0 100px;
-            text-align: center;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        /* Denah Section */
+        .map-section { 
+            background: white; border-radius: 20px; padding: 20px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-top: 40px; border: 1px solid #eee;
         }
+        .img-denah { width: 100%; border-radius: 12px; cursor: zoom-in; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
-        .header-section h1 {
-            font-weight: 700;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+        /* Fullscreen Overlay */
+        #overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95); z-index: 2000; justify-content: center; align-items: center;
+            cursor: zoom-out;
         }
-
-        .header-section p {
-            font-weight: 300;
-            opacity: 0.9;
-            font-size: 0.9rem;
-        }
-
-        /* Search Container */
-        .search-wrapper {
-            margin-top: -50px;
-            position: sticky;
-            top: 20px;
-            z-index: 1000;
-        }
-
-        .search-box {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            display: flex;
-            align-items: center;
-        }
-
-        .search-box i {
-            font-size: 1.2rem;
-            color: var(--ump-blue);
-            margin-left: 10px;
-        }
-
-        .search-box input {
-            border: none;
-            box-shadow: none !important;
-            font-size: 1.1rem;
-            padding: 10px 15px;
-            background: transparent;
-        }
-
-        /* Card Results */
-        .guest-card {
-            background: white;
-            border: none;
-            border-radius: 20px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            border-left: 6px solid var(--ump-gold);
-        }
-
-        .guest-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-        }
-
-        .card-body-custom {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .info-main h5 {
-            font-weight: 700;
-            color: var(--ump-blue);
-            margin-bottom: 4px;
-            font-size: 1.05rem;
-        }
-
-        .info-main .prodi-text {
-            font-size: 0.8rem;
-            color: #636e72;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .seat-tag {
-            background: var(--ump-blue);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 12px;
-            text-align: center;
-            min-width: 100px;
-        }
-
-        .seat-tag .label {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: block;
-            opacity: 0.8;
-            margin-bottom: 2px;
-        }
-
-        .seat-tag .value {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--ump-gold);
-        }
-
-        .no-badge {
-            background: #f1f2f6;
-            color: #2d3436;
-            padding: 2px 10px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            display: inline-block;
-        }
-
-        #info-count {
-            font-size: 0.8rem;
-            color: #636e72;
-            margin-top: 10px;
-            padding-left: 10px;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-fade {
-            animation: fadeIn 0.4s ease forwards;
-        }
+        #overlay img { max-width: 98%; max-height: 98%; object-fit: contain; }
     </style>
 </head>
 <body>
 
 <div class="header-section">
     <div class="container">
-        <h1>WISUDA UMP KE-78</h1>
-        <p><i class="fas fa-university me-2"></i>Universitas Muhammadiyah Purwokerto | Tahun 2026</p>
+        <h2 class="fw-bold">WISUDA UMP KE-78</h2>
+        <p class="mb-0 opacity-75"><i class="fas fa-user-check me-2"></i>Sistem Pencarian Lokasi Usher</p>
     </div>
 </div>
 
 <div class="container search-wrapper">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="keyword" class="form-control" placeholder="Cari Nama Wisudawan..." autocomplete="off" oninput="cariData()">
-            </div>
-            <div id="info-count"></div>
+    <div class="col-md-8 mx-auto">
+        <div class="search-box">
+            <i class="fas fa-search me-2"></i>
+            <input type="text" id="keyword" class="form-control" placeholder="Ketik Nama atau Nomor Urut (Contoh: A1)..." autocomplete="off" oninput="cariData()">
         </div>
+        <div id="res-info" class="text-muted small mt-2 ps-2" style="height: 20px;"></div>
     </div>
 </div>
 
 <div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-md-8" id="hasil-container">
-            <div class="text-center mt-5 text-muted">
-                <i class="fas fa-user-graduate fa-3x mb-3 opacity-25"></i>
-                <p>Ketikkan nama wisudawan untuk mencari kursi</p>
+        <div class="col-md-8" id="hasil-container"></div>
+
+        <div class="col-md-8">
+            <div class="map-section text-center">
+                <h6 class="fw-bold mb-3" style="color:var(--ump-blue)">
+                    <i class="fas fa-map-marked-alt me-2"></i>DENAH LOKASI KURSI
+                </h6>
+                <img src="https://storage.filebin.net/filebin/d6923a0ca7fb00648ee38abd4e98cd68816cbe4e4e28327113efec85f196174a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=GK352fd2505074fc9dde7fd2cb%2F20260213%2Fhel1-dc4%2Fs3%2Faws4_request&X-Amz-Date=20260213T100038Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host%3Bx-forwarded-for&response-cache-control=max-age%3D7200&response-content-disposition=inline%3B%20filename%3D%22denah.png%22&response-content-type=image%2Fpng&x-id=GetObject&X-Amz-Signature=b126dbf65d5b7009ef0fb2197ac66e8b2a2b7a0deac8dcdf5d7656d67c3236c2" 
+                     class="img-denah" alt="Denah Wisuda UMP" onclick="openFullscreen(this.src)">
+                <p class="text-muted small mt-3"><i class="fas fa-info-circle me-1"></i> Klik denah untuk memperbesar tampilan</p>
             </div>
         </div>
     </div>
 </div>
 
+<div id="overlay" onclick="closeFullscreen()">
+    <img id="fullscreenImg">
+</div>
+
 <script>
-    // DATA AUTO-GENERATED DARI EXCEL ANDA (840 DATA)
+    // DATA LENGKAP 840 WISUDAWAN
     const dataWisuda = [
-       { no: "A1", nama: "Wuri Handayani, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A2", nama: "Enggal Rininggayuh, M.Pd.", prodi: "Magister Pend. Bahasa Inggris", lokasi: "Lantai 1 Timur" },
-{ no: "A3", nama: "Ani Oktafiana, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A4", nama: "Erfi Yana Eka Susanti, M.Pd.", prodi: "Magister Pend. IPS", lokasi: "Lantai 1 Timur" },
-{ no: "A5", nama: "Refi Rizki Arizka, S.Pd.", prodi: "Pend. Geografi", lokasi: "Lantai 1 Timur" },
-{ no: "A6", nama: "Andreas Dhanu Ramadhan, S.Pd.", prodi: "Pend. Sejarah", lokasi: "Lantai 1 Timur" },
-{ no: "A7", nama: "Anggraeni Kartika Sari, S.Pd.", prodi: "Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A8", nama: "Nabila Eka Wulandari, S.Pd.", prodi: "Pend. Bahasa Inggris", lokasi: "Lantai 1 Timur" },
-{ no: "A9", nama: "Syeni Risti Fani, S.Pd.", prodi: "Pend. Matematika", lokasi: "Lantai 1 Timur" },
-{ no: "A10", nama: "Qurrota A'yun Shofa Qurana, S.Pd.", prodi: "Pend. Biologi", lokasi: "Lantai 1 Timur" },
-{ no: "A11", nama: "Saskia Putri Saharani, S.Pd.", prodi: "Pend. Guru Sekolah Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A12", nama: "Nurma Aida, S.Pd.", prodi: "Pend. Guru PAUD", lokasi: "Lantai 1 Timur" },
-{ no: "A13", nama: "Dwi Kartika Wahyuningsih, M.M.", prodi: "Magister Manajemen", lokasi: "Lantai 1 Timur" },
-{ no: "A14", nama: "Putri Syifa Anatasya, S.M.", prodi: "Manajemen S-1", lokasi: "Lantai 1 Timur" },
-{ no: "A15", nama: "Ayu Setyaningrum, S.Ak.", prodi: "Akuntansi S-1", lokasi: "Lantai 1 Timur" },
-{ no: "A16", nama: "Rida Rahmah Danis, S.Bns.", prodi: "Bisnis Digital", lokasi: "Lantai 1 Timur" },
-{ no: "A17", nama: "Delly Permana, S.T.", prodi: "Teknik Sipil", lokasi: "Lantai 1 Timur" },
-{ no: "A18", nama: "Bayu Hendra Pratama, S.T.", prodi: "Teknik Elektro", lokasi: "Lantai 1 Timur" },
-{ no: "A19", nama: "Febby Olivia Mawardianti, S.Kom.", prodi: "Teknik Informatika", lokasi: "Lantai 1 Timur" },
-{ no: "A20", nama: "Taufik Saepuloh, S.T.", prodi: "Teknik Mesin", lokasi: "Lantai 1 Timur" },
-{ no: "A21", nama: "Nur Faiqoh Izzati, S.P.", prodi: "Agribisnis", lokasi: "Lantai 1 Timur" },
-{ no: "A22", nama: "Kasno Irwanto, S.P.", prodi: "Agroteknologi", lokasi: "Lantai 1 Timur" },
-{ no: "A23", nama: "Febiana Lenterani, S.Pi.", prodi: "Akuakultur", lokasi: "Lantai 1 Timur" },
-{ no: "A24", nama: "Anis Labib, M.Pd.", prodi: "Magister Pend. Agama Islam", lokasi: "Lantai 1 Timur" },
-{ no: "A25", nama: "Nanik Setyawati, S.Pd.", prodi: "Pend. Agama Islam", lokasi: "Lantai 1 Timur" },
-{ no: "A26", nama: "Jeannery Cesare, S.H.", prodi: "Hukum Ekonomi Syariah", lokasi: "Lantai 1 Timur" },
-{ no: "A27", nama: "Gendewa Semesta, S.Psi.", prodi: "Psikologi", lokasi: "Lantai 1 Timur" },
-{ no: "A28", nama: "Imas Amalia Wardani, M.Farm.", prodi: "Magister Farmasi", lokasi: "Lantai 1 Timur" },
-{ no: "A29", nama: "Putri Nazwa Alfabetis, S.Farm.", prodi: "Farmasi", lokasi: "Lantai 1 Timur" },
-{ no: "A30", nama: "Kamal Abdul Azis, S.S.", prodi: "Sastra Inggris", lokasi: "Lantai 1 Timur" },
-{ no: "A31", nama: "Rekhaf Herdiana Sutrisno, S.H.", prodi: "Ilmu Hukum", lokasi: "Lantai 1 Timur" },
-{ no: "A32", nama: "Elvonda Neilse Piere Yuda, A.Md.Kep.", prodi: "Keperawatan D-3", lokasi: "Lantai 1 Timur" },
-{ no: "A33", nama: "Tsabita Safa Sabila, S.Kep.", prodi: "Keperawatan S-1", lokasi: "Lantai 1 Timur" },
-{ no: "A34", nama: "Nur Fatkhiyyatul Huwaidah, S.Tr.Kes.", prodi: "Teknologi Laboratorium Medik", lokasi: "Lantai 1 Timur" },
-{ no: "A35", nama: "Syifa Aditya Saputri, S.Tr.T.", prodi: "Teknologi Rekayasa Elektro-Medis", lokasi: "Lantai 1 Timur" },
-{ no: "A36", nama: "Nadila, S.Tr.Kes.", prodi: "Keperawatan Anestesiologi", lokasi: "Lantai 1 Timur" },
-{ no: "A37", nama: "Amanda Dita Afifah, S.Ked.", prodi: "Pend. Dokter", lokasi: "Lantai 1 Timur" },
-{ no: "A38", nama: "Vera Citra Agustiyani, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A39", nama: "Sabrina Andin Rakhmawati, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A40", nama: "Imam Wahyu Aji, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A41", nama: "Arum Berliana Prasanty, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A42", nama: "Bhayu Anggita Subarkah, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A43", nama: "Siti Faridah, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A44", nama: "Ilawati, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A45", nama: "Vani Indra Pramudianto, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A46", nama: "Ratino, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A47", nama: "Mashudi, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A48", nama: "Singgih Wiku Yuwono, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A49", nama: "Tuti Mayasuci, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A50", nama: "Heni Kurniawati, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A51", nama: "Jihan Ainas Nabilla, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A52", nama: "Tri Puji Setyawati, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A53", nama: "Afita Dwi Khasanah, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A54", nama: "Iqbalva Demas Wibowo, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
-{ no: "A55", nama: "Intan Ayu Septika Dewi, M.Pd.", prodi: "Magister Pend. Bahasa Inggris", lokasi: "Lantai 1 Timur" },
-{ no: "A56", nama: "Rakhmah Pratiwi, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A57", nama: "Teguh Raharjo, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A58", nama: "Kalokowati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A59", nama: "Isti Windi Astuti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A60", nama: "Dhesi Purnamasari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A61", nama: "Artisia Hannisa, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A62", nama: "Laksmi Fidya Arini, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A63", nama: "Aji Purwanto, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A64", nama: "Eli Purwati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A65", nama: "Siti Nur Hasanah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A66", nama: "Efi Oktaviani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A67", nama: "Catur Wulandari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A68", nama: "Yusuf Yuniar Ratus, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A69", nama: "Nova Abadul Fahmi, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A70", nama: "Bamas Aprihadi Setiawan, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A71", nama: "Neysa Dika Putri, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A72", nama: "Aprilia Setyowati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A73", nama: "Wahyu Yuliawan, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A74", nama: "Wiwit Viana Wulandari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A75", nama: "Rohfi Hestuti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A76", nama: "Khomsah Nur Laeli, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A77", nama: "Diyah Tiyas Septiani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A78", nama: "Hayatun Ni'mah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A79", nama: "Ari Kusmiyati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A80", nama: "Trio Bagus Darmawan, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Timur" },
-{ no: "A81", nama: "Suryati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A82", nama: "Asrofi`Ah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A83", nama: "Diah Widyaningsih, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A84", nama: "Titien Yuliastuti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A85", nama: "Mohamad Januar, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A86", nama: "Ari Aji Subektiono, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A87", nama: "Arditya Angga Raharja, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A88", nama: "Eka Yanuarti Nugraheni, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A89", nama: "Sofiana Ratnasari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A90", nama: "Dian Wicaksono, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A91", nama: "Joko Triyono, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A92", nama: "Eni Suprati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A93", nama: "Winda Istanti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A94", nama: "Sri Sunarni, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A95", nama: "Andika Kristianto, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A96", nama: "Bekti Kuat Pamungkas, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A97", nama: "Martina Rini Budiarti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A98", nama: "Febriyanti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A99", nama: "Istikomah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A100", nama: "Irma Octaviani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A101", nama: "Cefi Kurniasih, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A102", nama: "Munofa Khoeron Rizoq, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A103", nama: "Iswatun Hasanah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A104", nama: "Ernasari Sri Asih Wulandari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A105", nama: "Windi Masmodah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A106", nama: "Puji Lestari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A107", nama: "Bety Andriyani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A108", nama: "Lilis Saputri Handayani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A109", nama: "Triyani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A110", nama: "Sriyanti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A111", nama: "Anggraeni, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A112", nama: "Aprilia Ariestiani Wijayanti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A113", nama: "Dian Maharani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A114", nama: "Fani Restuwiyani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A115", nama: "Firsty Mariana, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A116", nama: "Puput Lestari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A117", nama: "Susy Abidin, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A118", nama: "Shania Ulfach, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
-{ no: "A119", nama: "Tanti Lukita Sari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Lantai 1 Barat" },
+      { no: "A1", nama: "Wuri Handayani, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A2", nama: "Enggal Rininggayuh, M.Pd.", prodi: "Magister Pend. Bahasa Inggris", lokasi: "Bawah Sisi Timur" },
+{ no: "A3", nama: "Ani Oktafiana, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A4", nama: "Erfi Yana Eka Susanti, M.Pd.", prodi: "Magister Pend. IPS", lokasi: "Bawah Sisi Timur" },
+{ no: "A5", nama: "Refi Rizki Arizka, S.Pd.", prodi: "Pend. Geografi", lokasi: "Bawah Sisi Timur" },
+{ no: "A6", nama: "Andreas Dhanu Ramadhan, S.Pd.", prodi: "Pend. Sejarah", lokasi: "Bawah Sisi Timur" },
+{ no: "A7", nama: "Anggraeni Kartika Sari, S.Pd.", prodi: "Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A8", nama: "Nabila Eka Wulandari, S.Pd.", prodi: "Pend. Bahasa Inggris", lokasi: "Bawah Sisi Timur" },
+{ no: "A9", nama: "Syeni Risti Fani, S.Pd.", prodi: "Pend. Matematika", lokasi: "Bawah Sisi Timur" },
+{ no: "A10", nama: "Qurrota A'yun Shofa Qurana, S.Pd.", prodi: "Pend. Biologi", lokasi: "Bawah Sisi Timur" },
+{ no: "A11", nama: "Saskia Putri Saharani, S.Pd.", prodi: "Pend. Guru Sekolah Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A12", nama: "Nurma Aida, S.Pd.", prodi: "Pend. Guru PAUD", lokasi: "Bawah Sisi Timur" },
+{ no: "A13", nama: "Dwi Kartika Wahyuningsih, M.M.", prodi: "Magister Manajemen", lokasi: "Bawah Sisi Timur" },
+{ no: "A14", nama: "Putri Syifa Anatasya, S.M.", prodi: "Manajemen S-1", lokasi: "Bawah Sisi Timur" },
+{ no: "A15", nama: "Ayu Setyaningrum, S.Ak.", prodi: "Akuntansi S-1", lokasi: "Bawah Sisi Timur" },
+{ no: "A16", nama: "Rida Rahmah Danis, S.Bns.", prodi: "Bisnis Digital", lokasi: "Bawah Sisi Timur" },
+{ no: "A17", nama: "Delly Permana, S.T.", prodi: "Teknik Sipil", lokasi: "Bawah Sisi Timur" },
+{ no: "A18", nama: "Bayu Hendra Pratama, S.T.", prodi: "Teknik Elektro", lokasi: "Bawah Sisi Timur" },
+{ no: "A19", nama: "Febby Olivia Mawardianti, S.Kom.", prodi: "Teknik Informatika", lokasi: "Bawah Sisi Timur" },
+{ no: "A20", nama: "Taufik Saepuloh, S.T.", prodi: "Teknik Mesin", lokasi: "Bawah Sisi Timur" },
+{ no: "A21", nama: "Nur Faiqoh Izzati, S.P.", prodi: "Agribisnis", lokasi: "Bawah Sisi Timur" },
+{ no: "A22", nama: "Kasno Irwanto, S.P.", prodi: "Agroteknologi", lokasi: "Bawah Sisi Timur" },
+{ no: "A23", nama: "Febiana Lenterani, S.Pi.", prodi: "Akuakultur", lokasi: "Bawah Sisi Timur" },
+{ no: "A24", nama: "Anis Labib, M.Pd.", prodi: "Magister Pend. Agama Islam", lokasi: "Bawah Sisi Timur" },
+{ no: "A25", nama: "Nanik Setyawati, S.Pd.", prodi: "Pend. Agama Islam", lokasi: "Bawah Sisi Timur" },
+{ no: "A26", nama: "Jeannery Cesare, S.H.", prodi: "Hukum Ekonomi Syariah", lokasi: "Bawah Sisi Timur" },
+{ no: "A27", nama: "Gendewa Semesta, S.Psi.", prodi: "Psikologi", lokasi: "Bawah Sisi Timur" },
+{ no: "A28", nama: "Imas Amalia Wardani, M.Farm.", prodi: "Magister Farmasi", lokasi: "Bawah Sisi Timur" },
+{ no: "A29", nama: "Putri Nazwa Alfabetis, S.Farm.", prodi: "Farmasi", lokasi: "Bawah Sisi Timur" },
+{ no: "A30", nama: "Kamal Abdul Azis, S.S.", prodi: "Sastra Inggris", lokasi: "Bawah Sisi Timur" },
+{ no: "A31", nama: "Rekhaf Herdiana Sutrisno, S.H.", prodi: "Ilmu Hukum", lokasi: "Bawah Sisi Timur" },
+{ no: "A32", nama: "Elvonda Neilse Piere Yuda, A.Md.Kep.", prodi: "Keperawatan D-3", lokasi: "Bawah Sisi Timur" },
+{ no: "A33", nama: "Tsabita Safa Sabila, S.Kep.", prodi: "Keperawatan S-1", lokasi: "Bawah Sisi Timur" },
+{ no: "A34", nama: "Nur Fatkhiyyatul Huwaidah, S.Tr.Kes.", prodi: "Teknologi Laboratorium Medik", lokasi: "Bawah Sisi Timur" },
+{ no: "A35", nama: "Syifa Aditya Saputri, S.Tr.T.", prodi: "Teknologi Rekayasa Elektro-Medis", lokasi: "Bawah Sisi Timur" },
+{ no: "A36", nama: "Nadila, S.Tr.Kes.", prodi: "Keperawatan Anestesiologi", lokasi: "Bawah Sisi Timur" },
+{ no: "A37", nama: "Amanda Dita Afifah, S.Ked.", prodi: "Pend. Dokter", lokasi: "Bawah Sisi Timur" },
+{ no: "A38", nama: "Vera Citra Agustiyani, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A39", nama: "Sabrina Andin Rakhmawati, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A40", nama: "Imam Wahyu Aji, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A41", nama: "Arum Berliana Prasanty, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A42", nama: "Bhayu Anggita Subarkah, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A43", nama: "Siti Faridah, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A44", nama: "Ilawati, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A45", nama: "Vani Indra Pramudianto, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A46", nama: "Ratino, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A47", nama: "Mashudi, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A48", nama: "Singgih Wiku Yuwono, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A49", nama: "Tuti Mayasuci, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A50", nama: "Heni Kurniawati, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A51", nama: "Jihan Ainas Nabilla, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A52", nama: "Tri Puji Setyawati, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A53", nama: "Afita Dwi Khasanah, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A54", nama: "Iqbalva Demas Wibowo, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+{ no: "A55", nama: "Intan Ayu Septika Dewi, M.Pd.", prodi: "Magister Pend. Bahasa Inggris", lokasi: "Bawah Sisi Timur" },
+{ no: "A56", nama: "Rakhmah Pratiwi, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A57", nama: "Teguh Raharjo, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A58", nama: "Kalokowati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A59", nama: "Isti Windi Astuti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A60", nama: "Dhesi Purnamasari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A61", nama: "Artisia Hannisa, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A62", nama: "Laksmi Fidya Arini, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A63", nama: "Aji Purwanto, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A64", nama: "Eli Purwati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A65", nama: "Siti Nur Hasanah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A66", nama: "Efi Oktaviani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A67", nama: "Catur Wulandari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A68", nama: "Yusuf Yuniar Ratus, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A69", nama: "Nova Abadul Fahmi, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A70", nama: "Bamas Aprihadi Setiawan, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A71", nama: "Neysa Dika Putri, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A72", nama: "Aprilia Setyowati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A73", nama: "Wahyu Yuliawan, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A74", nama: "Wiwit Viana Wulandari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A75", nama: "Rohfi Hestuti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A76", nama: "Khomsah Nur Laeli, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A77", nama: "Diyah Tiyas Septiani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A78", nama: "Hayatun Ni'mah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A79", nama: "Ari Kusmiyati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A80", nama: "Trio Bagus Darmawan, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
+{ no: "A81", nama: "Suryati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A82", nama: "Asrofi`Ah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A83", nama: "Diah Widyaningsih, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A84", nama: "Titien Yuliastuti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A85", nama: "Mohamad Januar, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A86", nama: "Ari Aji Subektiono, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A87", nama: "Arditya Angga Raharja, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A88", nama: "Eka Yanuarti Nugraheni, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A89", nama: "Sofiana Ratnasari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A90", nama: "Dian Wicaksono, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A91", nama: "Joko Triyono, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A92", nama: "Eni Suprati, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A93", nama: "Winda Istanti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A94", nama: "Sri Sunarni, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A95", nama: "Andika Kristianto, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A96", nama: "Bekti Kuat Pamungkas, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A97", nama: "Martina Rini Budiarti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A98", nama: "Febriyanti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A99", nama: "Istikomah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A100", nama: "Irma Octaviani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A101", nama: "Cefi Kurniasih, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A102", nama: "Munofa Khoeron Rizoq, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A103", nama: "Iswatun Hasanah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A104", nama: "Ernasari Sri Asih Wulandari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A105", nama: "Windi Masmodah, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A106", nama: "Puji Lestari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A107", nama: "Bety Andriyani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A108", nama: "Lilis Saputri Handayani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A109", nama: "Triyani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A110", nama: "Sriyanti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A111", nama: "Anggraeni, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A112", nama: "Aprilia Ariestiani Wijayanti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A113", nama: "Dian Maharani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A114", nama: "Fani Restuwiyani, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A115", nama: "Firsty Mariana, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A116", nama: "Puput Lestari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A117", nama: "Susy Abidin, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A118", nama: "Shania Ulfach, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
+{ no: "A119", nama: "Tanti Lukita Sari, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Barat" },
 { no: "A120", nama: "Deppy Widianto, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Tribun Barat" },
 { no: "A121", nama: "Sri Astuti, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Tribun Barat" },
 { no: "A122", nama: "Supriyanto, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Tribun Barat" },
@@ -1050,51 +946,57 @@
 
     ];
 
-    // Fungsi Pencarian Cepat (Optimized)
+    // Note: Pastikan dataWisuda di atas diisi lengkap dengan 840 data.
+    // Jika Anda ingin menghemat waktu, copy paste data dari CSV Anda ke dalam array ini.
+
     function cariData() {
         const input = document.getElementById('keyword');
         const container = document.getElementById('hasil-container');
-        const infoCount = document.getElementById('info-count');
+        const info = document.getElementById('res-info');
         const key = input.value.toLowerCase().trim();
 
         if (key.length === 0) {
-            container.innerHTML = `<div class="text-center mt-5 text-muted"><i class="fas fa-user-graduate fa-3x mb-3 opacity-25"></i><p>Ketikkan nama wisudawan untuk mencari kursi</p></div>`;
-            infoCount.innerHTML = "";
+            container.innerHTML = "";
+            info.innerHTML = "";
             return;
         }
 
-        // Filter data (Optimasi: mencari di Nama, No, dan Prodi)
+        // Search logic: Nama ATAU Nomor
         const hasil = dataWisuda.filter(item => 
             item.nama.toLowerCase().includes(key) || 
-            item.no.toLowerCase() === key ||
-            item.prodi.toLowerCase().includes(key)
+            item.no.toLowerCase().includes(key)
         );
 
-        // Render maksimal 40 hasil pertama agar super cepat di HP
-        const sliceHasil = hasil.slice(0, 40);
-        infoCount.innerHTML = `Menampilkan ${sliceHasil.length} dari ${hasil.length} data ditemukan`;
+        const displayed = hasil.slice(0, 20); // Limit 20 biar kenceng
+        info.innerHTML = `Ditemukan ${hasil.length} data`;
 
         if (hasil.length > 0) {
-            container.innerHTML = sliceHasil.map((item, index) => `
-                <div class="card guest-card animate-fade" style="animation-delay: ${index * 0.05}s">
-                    <div class="card-body-custom">
-                        <div class="info-main">
-                            <span class="no-badge">NO URUT: ${item.no}</span>
-                            <h5>${item.nama}</h5>
-                            <div class="prodi-text">
-                                <i class="fas fa-graduation-cap"></i> ${item.prodi}
-                            </div>
+            container.innerHTML = displayed.map(item => `
+                <div class="card guest-card p-3 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div style="flex: 1; padding-right:15px">
+                            <span class="badge bg-light text-dark mb-1" style="font-size:0.7rem">NO: ${item.no}</span>
+                            <h6 class="mb-1 fw-bold" style="color:var(--ump-blue)">${item.nama}</h6>
+                            <small class="text-muted d-block" style="font-size:0.75rem">${item.prodi}</small>
                         </div>
                         <div class="seat-tag">
-                            <span class="label">Tempat Duduk</span>
-                            <span class="value">${item.lokasi}</span>
+                            <small style="font-size:0.6rem; display:block; opacity:0.8">LOKASI</small>
+                            ${item.lokasi}
                         </div>
                     </div>
                 </div>
             `).join('');
         } else {
-            container.innerHTML = `<div class="text-center mt-5"><i class="fas fa-search-minus fa-3x mb-3 text-muted"></i><p class="text-muted">Nama tidak ditemukan. Coba ejaan lain.</p></div>`;
+            container.innerHTML = `<div class="text-center p-4 text-muted small">Data tidak ditemukan. Cek kembali ejaan atau nomor urut.</div>`;
         }
+    }
+
+    function openFullscreen(src) {
+        document.getElementById('fullscreenImg').src = src;
+        document.getElementById('overlay').style.display = 'flex';
+    }
+    function closeFullscreen() {
+        document.getElementById('overlay').style.display = 'none';
     }
 </script>
 
