@@ -3,42 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pencarian Kursi Wisuda UMP 78</title>
+    <title>E-Guest Wisuda UMP 78</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #f0f2f5; }
-        .hero { background: #004a99; color: white; padding: 30px 0 60px; border-radius: 0 0 40px 40px; }
-        .search-container { margin-top: -40px; }
-        .card-custom { border: none; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .badge-prodi { background-color: #e7f1ff; color: #004a99; font-weight: 500; }
-        .seat-box { background: #ffc107; color: #000; font-weight: bold; border-radius: 8px; padding: 5px 12px; }
+        :root {
+            --ump-blue: #002147;
+            --ump-gold: #FFD700;
+            --soft-bg: #f4f7fa;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--soft-bg);
+            color: #2d3436;
+            padding-bottom: 50px;
+        }
+
+        /* Background Header */
+        .header-section {
+            background: linear-gradient(135deg, var(--ump-blue) 0%, #004a99 100%);
+            color: white;
+            padding: 60px 0 100px;
+            text-align: center;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .header-section h1 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .header-section p {
+            font-weight: 300;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Search Container */
+        .search-wrapper {
+            margin-top: -50px;
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+        }
+
+        .search-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box i {
+            font-size: 1.2rem;
+            color: var(--ump-blue);
+            margin-left: 10px;
+        }
+
+        .search-box input {
+            border: none;
+            box-shadow: none !important;
+            font-size: 1.1rem;
+            padding: 10px 15px;
+            background: transparent;
+        }
+
+        /* Card Results */
+        .guest-card {
+            background: white;
+            border: none;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-left: 6px solid var(--ump-gold);
+        }
+
+        .guest-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .card-body-custom {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-main h5 {
+            font-weight: 700;
+            color: var(--ump-blue);
+            margin-bottom: 4px;
+            font-size: 1.05rem;
+        }
+
+        .info-main .prodi-text {
+            font-size: 0.8rem;
+            color: #636e72;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .seat-tag {
+            background: var(--ump-blue);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .seat-tag .label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            opacity: 0.8;
+            margin-bottom: 2px;
+        }
+
+        .seat-tag .value {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--ump-gold);
+        }
+
+        .no-badge {
+            background: #f1f2f6;
+            color: #2d3436;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        #info-count {
+            font-size: 0.8rem;
+            color: #636e72;
+            margin-top: 10px;
+            padding-left: 10px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.4s ease forwards;
+        }
     </style>
 </head>
 <body>
 
-<div class="hero text-center">
+<div class="header-section">
     <div class="container">
-        <h3 class="fw-bold">Wisuda UMP ke-78</h3>
-        <p>Cari data undangan & lokasi tempat duduk</p>
+        <h1>WISUDA UMP KE-78</h1>
+        <p><i class="fas fa-university me-2"></i>Universitas Muhammadiyah Purwokerto | Tahun 2026</p>
     </div>
 </div>
 
-<div class="container search-container">
+<div class="container search-wrapper">
     <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-8">
-            <div class="card card-custom p-4 mb-4">
-                <input type="text" id="keyword" class="form-control form-control-lg" placeholder="Ketik Nama atau Prodi..." onkeyup="cariData()">
-                <div id="info" class="mt-2 text-muted small"></div>
+        <div class="col-md-8">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="keyword" class="form-control" placeholder="Cari Nama Wisudawan..." autocomplete="off" oninput="cariData()">
             </div>
-            
-            <div id="hasil"></div>
+            <div id="info-count"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8" id="hasil-container">
+            <div class="text-center mt-5 text-muted">
+                <i class="fas fa-user-graduate fa-3x mb-3 opacity-25"></i>
+                <p>Ketikkan nama wisudawan untuk mencari kursi</p>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    // DATA DARI EXCEL (Sesuai kolom: NO, NAMA, PRODI, LOKASI)
+    // DATA AUTO-GENERATED DARI EXCEL ANDA (840 DATA)
     const dataWisuda = [
        { no: "A1", nama: "Wuri Handayani, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Lantai 1 Timur" },
 { no: "A2", nama: "Enggal Rininggayuh, M.Pd.", prodi: "Magister Pend. Bahasa Inggris", lokasi: "Lantai 1 Timur" },
@@ -883,45 +1050,50 @@
 
     ];
 
+    // Fungsi Pencarian Cepat (Optimized)
     function cariData() {
-        const keyword = document.getElementById('keyword').value.toLowerCase();
-        const container = document.getElementById('hasil');
-        const info = document.getElementById('info');
-        
-        container.innerHTML = "";
-        
-        if (keyword.length < 2) {
-            info.innerHTML = "Masukkan minimal 2 karakter...";
+        const input = document.getElementById('keyword');
+        const container = document.getElementById('hasil-container');
+        const infoCount = document.getElementById('info-count');
+        const key = input.value.toLowerCase().trim();
+
+        if (key.length === 0) {
+            container.innerHTML = `<div class="text-center mt-5 text-muted"><i class="fas fa-user-graduate fa-3x mb-3 opacity-25"></i><p>Ketikkan nama wisudawan untuk mencari kursi</p></div>`;
+            infoCount.innerHTML = "";
             return;
         }
 
-        const filter = dataWisuda.filter(item => 
-            item.nama.toLowerCase().includes(keyword) || 
-            item.prodi.toLowerCase().includes(keyword)
+        // Filter data (Optimasi: mencari di Nama, No, dan Prodi)
+        const hasil = dataWisuda.filter(item => 
+            item.nama.toLowerCase().includes(key) || 
+            item.no.toLowerCase() === key ||
+            item.prodi.toLowerCase().includes(key)
         );
 
-        info.innerHTML = `Ditemukan ${filter.length} data.`;
+        // Render maksimal 40 hasil pertama agar super cepat di HP
+        const sliceHasil = hasil.slice(0, 40);
+        infoCount.innerHTML = `Menampilkan ${sliceHasil.length} dari ${hasil.length} data ditemukan`;
 
-        filter.forEach(item => {
-            container.innerHTML += `
-                <div class="card card-custom p-3 mb-2 animate__animated animate__fadeIn">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="small text-muted">No Urut: ${item.no}</div>
-                            <h6 class="fw-bold mb-1">${item.nama}</h6>
-                            <span class="badge badge-prodi">${item.prodi}</span>
+        if (hasil.length > 0) {
+            container.innerHTML = sliceHasil.map((item, index) => `
+                <div class="card guest-card animate-fade" style="animation-delay: ${index * 0.05}s">
+                    <div class="card-body-custom">
+                        <div class="info-main">
+                            <span class="no-badge">NO URUT: ${item.no}</span>
+                            <h5>${item.nama}</h5>
+                            <div class="prodi-text">
+                                <i class="fas fa-graduation-cap"></i> ${item.prodi}
+                            </div>
                         </div>
-                        <div class="text-end">
-                            <div class="small text-muted mb-1">Lokasi Kursi</div>
-                            <div class="seat-box">${item.lokasi}</div>
+                        <div class="seat-tag">
+                            <span class="label">Tempat Duduk</span>
+                            <span class="value">${item.lokasi}</span>
                         </div>
                     </div>
                 </div>
-            `;
-        });
-
-        if (filter.length === 0) {
-            container.innerHTML = "<div class='text-center text-muted mt-4'>Data tidak ditemukan.</div>";
+            `).join('');
+        } else {
+            container.innerHTML = `<div class="text-center mt-5"><i class="fas fa-search-minus fa-3x mb-3 text-muted"></i><p class="text-muted">Nama tidak ditemukan. Coba ejaan lain.</p></div>`;
         }
     }
 </script>
