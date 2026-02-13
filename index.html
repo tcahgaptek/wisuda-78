@@ -12,7 +12,6 @@
         :root { --ump-blue: #002147; --ump-gold: #FFD700; --soft-bg: #f4f7fa; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--soft-bg); padding-bottom: 50px; }
 
-        /* Header */
         .header-section { 
             background: linear-gradient(135deg, var(--ump-blue) 0%, #004a99 100%); 
             color: white; padding: 40px 0 80px; text-align: center; 
@@ -20,67 +19,40 @@
             position: relative;
         }
 
-        /* Live Visitor Badge */
-        .live-badge {
-            position: absolute; top: 15px; right: 15px;
-            background: rgba(255, 255, 255, 0.15);
+        /* Histats Counter Styling */
+        .visitor-stats {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px; border-radius: 12px;
             backdrop-filter: blur(5px);
-            padding: 5px 12px; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 600;
-            display: flex; align-items: center; gap: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .pulse-dot {
-            width: 8px; height: 8px; background: #2ecc71;
-            border-radius: 50%;
-            box-shadow: 0 0 0 rgba(46, 204, 113, 0.4);
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Search Box */
-        .search-wrapper { margin-top: -40px; position: sticky; top: 15px; z-index: 1000; }
-        .search-box { 
-            background: white; border-radius: 20px; padding: 10px 20px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); display: flex; align-items: center;
-        }
+        .search-wrapper { margin-top: -40px; position: sticky; top: 15px; z-index: 900; }
+        .search-box { background: white; border-radius: 15px; padding: 10px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: flex; align-items: center; }
         .search-box input { border: none; box-shadow: none !important; font-size: 1.1rem; }
 
-        /* Cards */
-        .guest-card { 
-            background: white; border: none; border-radius: 18px; margin-bottom: 12px; 
-            border-left: 6px solid var(--ump-gold); animation: slideUp 0.4s ease;
-        }
-        @keyframes slideUp { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
-        .seat-tag { background: var(--ump-blue); color: var(--ump-gold); padding: 5px 15px; border-radius: 10px; font-weight: 700; }
+        .guest-card { background: white; border: none; border-radius: 15px; margin-bottom: 12px; border-left: 5px solid var(--ump-gold); }
+        .seat-tag { background: var(--ump-blue); color: var(--ump-gold); padding: 5px 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem;}
 
-        /* Denah */
         .map-section { background: white; border-radius: 20px; padding: 20px; margin-top: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .img-denah { width: 100%; border-radius: 12px; cursor: zoom-in; }
+        .img-denah { width: 100%; border-radius: 12px; cursor: pointer; }
 
         /* Fullscreen Overlay */
-        #overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95); z-index: 2000; justify-content: center; align-items: center;
-        }
-        #overlay img { max-width: 98%; max-height: 98%; object-fit: contain; }
+        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
+        #overlay img { max-width: 95%; max-height: 95%; }
     </style>
 </head>
 <body>
 
 <div class="header-section">
-    <div class="live-badge">
-        <div class="pulse-dot"></div>
-        <span><span id="visitor-count">12</span> Orang sedang mengakses</span>
+    <div class="visitor-stats">
+        <div id="histats_counter"></div>
     </div>
     
     <div class="container">
         <h2 class="fw-bold">WISUDA UMP KE-78</h2>
-        <p class="opacity-75">Sistem Pencarian Lokasi Tempat Duduk</p>
+        <p class="opacity-75">Data Kursi & Denah Lokasi</p>
     </div>
 </div>
 
@@ -88,7 +60,7 @@
     <div class="col-md-8 mx-auto">
         <div class="search-box">
             <i class="fas fa-search text-muted me-2"></i>
-            <input type="text" id="keyword" class="form-control" placeholder="Cari Nama atau Nomor Kursi" oninput="cariData()">
+            <input type="text" id="keyword" class="form-control" placeholder="Cari Nama atau Nomor (Contoh: A1)..." oninput="cariData()">
         </div>
     </div>
 </div>
@@ -96,13 +68,12 @@
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8" id="hasil-container"></div>
-
         <div class="col-md-8">
             <div class="map-section text-center">
-                <h6 class="fw-bold mb-3" style="color:var(--ump-blue)">DENAH LOKASI GEDUNG</h6>
+                <h6 class="fw-bold mb-3" style="color:var(--ump-blue)">DENAH GEDUNG</h6>
                 <img src="https://storage.filebin.net/filebin/d6923a0ca7fb00648ee38abd4e98cd68816cbe4e4e28327113efec85f196174a?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=GK352fd2505074fc9dde7fd2cb%2F20260213%2Fhel1-dc4%2Fs3%2Faws4_request&X-Amz-Date=20260213T100038Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host%3Bx-forwarded-for&response-cache-control=max-age%3D7200&response-content-disposition=inline%3B%20filename%3D%22denah.png%22&response-content-type=image%2Fpng&x-id=GetObject&X-Amz-Signature=b126dbf65d5b7009ef0fb2197ac66e8b2a2b7a0deac8dcdf5d7656d67c3236c2" 
                      class="img-denah" onclick="openFullscreen(this.src)">
-                <p class="text-muted small mt-2">Klik gambar denah untuk fullscreen</p>
+                <p class="text-muted small mt-2">Klik gambar untuk zoom denah</p>
             </div>
         </div>
     </div>
@@ -112,10 +83,21 @@
     <img id="fullscreenImg">
 </div>
 
+<script type="text/javascript">var _Hasync= _Hasync|| [];
+_Hasync.push(['Histats.start', '1,5008851,4,24,200,50,00011101']);
+_Hasync.push(['Histats.fasi', '1']);
+_Hasync.push(['Histats.track_hits', '']);
+(function() {
+var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+hs.src = ('//s10.histats.com/js15_as.js');
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+})();</script>
+<noscript><a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?5008851&101" alt="histats" border="0"></a></noscript>
+
 <script>
-    // DATA 840 WISUDAWAN (LENGKAP)
+    // MASUKKAN DATA WISUDA ANDA DI SINI (ARRAY JSON)
     const dataWisuda = [
-       { no: "A1", nama: "Wuri Handayani, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
+        { no: "A1", nama: "Wuri Handayani, M.Pd.", prodi: "Magister Pend. Bahasa dan Sastra Indonesia", lokasi: "Bawah Sisi Timur" },
 { no: "A2", nama: "Enggal Rininggayuh, M.Pd.", prodi: "Magister Pend. Bahasa Inggris", lokasi: "Bawah Sisi Timur" },
 { no: "A3", nama: "Ani Oktafiana, M.Pd.", prodi: "Magister Pend. Dasar", lokasi: "Bawah Sisi Timur" },
 { no: "A4", nama: "Erfi Yana Eka Susanti, M.Pd.", prodi: "Magister Pend. IPS", lokasi: "Bawah Sisi Timur" },
@@ -958,13 +940,6 @@
 
     ];
 
-    // Simulasi Visitor yang Terlihat Real
-    function updateVisitors() {
-        const base = Math.floor(Math.random() * 5) + 12; // Misal tim usher ada 12-17 orang
-        document.getElementById('visitor-count').innerText = base;
-    }
-    setInterval(updateVisitors, 5000); // Update setiap 5 detik
-
     function cariData() {
         const key = document.getElementById('keyword').value.toLowerCase().trim();
         const container = document.getElementById('hasil-container');
@@ -972,12 +947,11 @@
 
         const hasil = dataWisuda.filter(i => i.nama.toLowerCase().includes(key) || i.no.toLowerCase().includes(key));
         container.innerHTML = hasil.slice(0, 15).map(item => `
-            <div class="card guest-card p-3 shadow-sm">
+            <div class="card guest-card p-3 shadow-sm animate-fade">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <small class="text-muted fw-bold">NO: ${item.no}</small>
                         <h6 class="mb-0 fw-bold" style="color:var(--ump-blue)">${item.nama}</h6>
-                        <small class="text-muted" style="font-size:0.7rem">${item.prodi}</small>
                     </div>
                     <div class="seat-tag">${item.lokasi}</div>
                 </div>
